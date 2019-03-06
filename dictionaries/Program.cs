@@ -100,11 +100,17 @@ namespace dictionaries {
 // *********************** Planets ***********************
 // Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto
 
-    List<string> planetList = new List<string>(){"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
+    List<string> planetList = new List<string>(){"Mercury", "Venus", "Earth", 
+    "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
 
     planetPrinter(planetList);
 
     List<Dictionary<string, string>> probes = new List<Dictionary<string, string>>();
+
+    // List<Dictionary<string, string>> probes = new List<Dictionary<string, string>>() {
+    //     new Dictionary<string, string>(){ {"Mercury", "probe16"} },
+    //     new Dictionary<string, string>(){ {"Venus", "probe15"} }
+    // }  ***** This is how Andy wrote it - Initializing with the date as opposed to adding
 
     probes.Add(new Dictionary<string, string>(){ 
         {"Mercury", "probe16"} });
@@ -151,13 +157,30 @@ namespace dictionaries {
 
         // Does the current Dictionary contain the key of
         // the current planet? If so, add the current spacecraft to `matchingProbes`.
+        // Is the planet I'm currently looking at been visited by the probe - Does the dictionary
+        // contain the key for that planet - Take the value of the key and add it to the list
+        // We only want to get the values that match ourplanet
+
+        //if the dictionary contains more than one key value pair with ie: Mars and Earth 
+        // and I only want to reference one of them would chage the if statement to:
+
+        // if (probe.ContainsKey(planet)) {
+        //     string probeName = probe[planet];
+        //     matchingProbes.Add(probe[probeName]);
+        //     }
+
 
             if (probe.ContainsKey(planet)) {
                         matchingProbes.Add(probe[planet]);
             }
             
         }
-        Console.WriteLine($"{planet}: {String.Join(", ", matchingProbes)}");   
+        // Can break it into two steps by
+        // string planetListString = string.Join(", ", matchingProbes);
+        // Console.WriteLine ($"{"planet}: {planetListString});
+
+        //This planet has been visited by these probes
+        Console.WriteLine($"{planet} has been visited by these probes: {String.Join(", ", matchingProbes)}");   
     }   
         }   
     }
