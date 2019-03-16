@@ -9,7 +9,8 @@ namespace StudentExercises
      public string StudentLastName {get; set;}
      public string StudentSlackHandle {get; set;}
      public string CohortName {get; set;}
-     public List<Exercise> Exercises;
+     public List<Exercise> TheStudentsExerciseList {get; set;}
+     // public List<Exercise> AssignedExercises {get; set;} = new List<Exercise>();
 
      // Constructor for adding
      public Student(string fName, string lName, string sHandle, string sCohort)
@@ -18,7 +19,8 @@ namespace StudentExercises
          StudentLastName = lName;
          StudentSlackHandle = sHandle;
          CohortName = sCohort;
-         Exercises = new List<Exercise>();
+         TheStudentsExerciseList = new List<Exercise>();
      }
+    
   }  
 }

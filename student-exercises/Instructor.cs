@@ -9,20 +9,20 @@ namespace StudentExercises
      public string InstructorLastName {get; set;}
      public string InstructorSlackHandle {get; set;}
      public string CohortName {get; set;}
-     public List<Student> Students;
-     public List<Exercise> Exercises;
+     public List<Student> InstructorsStudentList {get; set;}
+     public List<Exercise> InstructorsExerciseList {get; set;}
 
      public Instructor(string fName, string lName, string sHandle, string cName) {
          InstructorFirstName = fName;
          InstructorLastName = lName;
          InstructorSlackHandle = sHandle;
          CohortName = cName;
-         Students = new List<Student>();
-         Exercises = new List<Exercise>();
+         InstructorsStudentList = new List<Student>();
+         InstructorsExerciseList = new List<Exercise>();
      }
 
      public void AssignExercise(Exercise exercise, Student student) {
-            student.Exercises.Add(exercise);
+            student.TheStudentsExerciseList.Add(exercise);
         
      }
   }  
