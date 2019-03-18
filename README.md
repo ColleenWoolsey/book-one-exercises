@@ -1,6 +1,6 @@
      CHAPTER 1 - Installations
 
-Installed Visual Studio Code and C# Extension
+Installed Visual Studio Code C# Extension
 
 Installed .NET Core
 
