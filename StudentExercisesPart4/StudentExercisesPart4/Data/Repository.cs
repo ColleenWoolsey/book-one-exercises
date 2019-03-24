@@ -186,9 +186,6 @@ namespace StudentExercisesPart4.Data
                     cmd.Parameters.Add(new SqlParameter("@slackHandle", instructor.InstructorSlackHandle));
                     cmd.Parameters.Add(new SqlParameter("@cohortid", instructor.CohortId));
                     cmd.ExecuteNonQuery();
-// ************   System.Data.SqlClient.SqlException: 'The INSERT statement conflicted 
-                    // with the FOREIGN KEY constraint "FK_InstructorCohort". The conflict occurred in database 
-                    // "StudentExercisesDB", table "dbo.Cohort", column 'Id'.
                 }
             }
         }
@@ -211,6 +208,8 @@ namespace StudentExercisesPart4.Data
             }
         }
         // THEN FIND all Exercise Intersection in the Table - Adding the Student Names and Exercise Name
+        // HOWEVER The problem with me making Exercise intersection the main table is I don't see students 
+        // without exercises - Where NULL - SO SEE BOTTOM FOR ANDY'S CODE
 
         public List<ExerciseIntersection> GetAllExerciseIntersections()
         {
@@ -219,30 +218,34 @@ namespace StudentExercisesPart4.Data
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"SELECT * FROM ExerciseIntersection ei
-                                         LEFT JOIN Exercise e ON e.Id = ei.ExerciseId
-                                         RIGHT JOIN Student s ON s.Id = ei.StudentId";
+                    cmd.CommandText = @"SELECT s.StudentFirstName,
+                                            s.StudentLastName,
+                                            e.ExerciseName,
+                                            c.CohortName
+                                            From ExerciseIntersection j
+                                            RIGHT JOIN Student s on j.StudentId = s.id
+                                            RIGHT JOIN Exercise e on j.ExerciseId = e.id
+                                            LEFT JOIN Cohort c on s.CohortId = c.id";                    
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     List<ExerciseIntersection> exerciseIntersections = new List<ExerciseIntersection>();
                     while (reader.Read())
                     {
-                        Exercise exercise = new Exercise()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("e.ExerciseId")),
-                            ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName"))
-                        };
-                        Student student = new Student()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("s.StudentId")),
-                            StudentFirstName = reader.GetString(reader.GetOrdinal("StudentFirstName")),
-                            StudentLastName = reader.GetString(reader.GetOrdinal("StudentLastName")),
-                        };
                         ExerciseIntersection exerciseIntersection = new ExerciseIntersection()
                         {
-                            ExerciseId = reader.GetInt32(reader.GetOrdinal("ExerciseId")),
                             StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
-
+                            Student = new Student
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                StudentFirstName = reader.GetString(reader.GetOrdinal("StudentFirstName")),
+                                StudentLastName = reader.GetString(reader.GetOrdinal("StudentLastName")),
+                            },
+                            ExerciseId = reader.GetInt32(reader.GetOrdinal("ExerciseId")),
+                            Exercise = new Exercise
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                ExerciseName = reader.GetString(reader.GetOrdinal("ExerciseName")),
+                            }
                         };
                         exerciseIntersections.Add(exerciseIntersection);
                     }
@@ -290,6 +293,11 @@ namespace StudentExercisesPart4.Data
                 }
             }
         }
+
+        // Add the following to your program:
+        // Find all the students in the database.Include each student's cohort AND each student's list of exercises
+        // Write a method in the Repository class that accepts an Exercise and a Cohort and assigns that exercise to 
+        // each student in the cohort IF and ONLY IF the student has not already been assigned the exercise.
 
         // Andy said we needed to write a script in repository that stores the students in a Dictionary instead of a list
         // where the key is the studentId and check to see if student cantains the key
@@ -375,3 +383,4 @@ namespace StudentExercisesPart4.Data
         }
     }
 }
+ 

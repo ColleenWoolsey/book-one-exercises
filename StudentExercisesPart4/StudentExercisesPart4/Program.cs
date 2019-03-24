@@ -38,7 +38,7 @@ namespace StudentExercisesPart4
             };
             repository.AddExercise(nutshell);
             exercises = repository.GetAllExercises();
-            PrintExerciseReport("All Exercisess after adding one", exercises);
+            PrintExerciseReport("All Exercises after adding one", exercises);
             Pause();
 
 // 4. Find all instructors in the database. Include each instructor's cohort
@@ -48,8 +48,7 @@ namespace StudentExercisesPart4
             Console.WriteLine("All Instructors With Cohort");
             foreach (Instructor i in instructors)
             {
-                Console.WriteLine($"{i.InstructorFirstName} {i.InstructorLastName} is in " +
-                    $"{i.Cohort.CohortName}");
+                Console.WriteLine($"{i.InstructorFirstName} {i.InstructorLastName} is in {i.Cohort.CohortName}");
             }
             Pause();
 
@@ -59,7 +58,7 @@ namespace StudentExercisesPart4
                 InstructorFirstName = "Joe",
                 InstructorLastName = "Shmoe",
                 InstructorSlackHandle = "JoeShmoe@Nss",
-                CohortId = 30
+                CohortId = 3
             };
             repository.AddInstructor(joeShmoe);
 
@@ -67,9 +66,8 @@ namespace StudentExercisesPart4
             Console.WriteLine("All Instructors With Cohort after adding one");
             foreach (Instructor i in repository.GetAllInstructorsWithCohort())
             {
-                Console.WriteLine($"{i.InstructorFirstName} {i.InstructorLastName} is in " +
-                    $"{i.Cohort.CohortName}");
-            }
+                Console.WriteLine($"{i.InstructorFirstName} {i.InstructorLastName} is in {i.Cohort.CohortName}");
+            };
             Pause();
 
             
@@ -80,13 +78,17 @@ namespace StudentExercisesPart4
                 StudentId = 4
             };
             repository.AddExerciseIntersection(newInt);
-            
+            Console.WriteLine("Assigned an Exercise to an existing student");
+            Pause();
+
+            // List<ExerciseIntersection> exerciseIntersections = repository.GetAllExerciseIntersections();????
             Console.WriteLine("List of Exercise Intersections");
-            
-           /*foreach (ExerciseIntersection ei in exerciseIntersections)
-            {
-                Console.WriteLine($"{ei.ExerciseId} {ei.Exercise} {ei.StudentId} {ei.Student}");
-            }*/
+
+            // foreach (ExerciseIntersection j in exerciseIntersections)
+                foreach (ExerciseIntersection j in repository.GetAllExerciseIntersections())
+             {
+                 Console.WriteLine($"{j.ExerciseId} {j.Exercise} {j.StudentId} {j.Student}");
+             };
             Pause();
 
 
