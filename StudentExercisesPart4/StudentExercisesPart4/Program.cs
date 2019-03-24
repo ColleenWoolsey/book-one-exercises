@@ -81,10 +81,11 @@ namespace StudentExercisesPart4
             Console.WriteLine("Assigned an Exercise to an existing student");
             Pause();
 
-            // List<ExerciseIntersection> exerciseIntersections = repository.GetAllExerciseIntersections();
+            // List<ExerciseIntersection> exerciseIntersections = repository.GetAllExerciseIntersections();????
             Console.WriteLine("List of Exercise Intersections");
 
-            foreach (ExerciseIntersection j in repository.GetAllExerciseIntersections())
+            // foreach (ExerciseIntersection j in exerciseIntersections)
+                foreach (ExerciseIntersection j in repository.GetAllExerciseIntersections())
              {
                  Console.WriteLine($"{j.ExerciseId} {j.Exercise} {j.StudentId} {j.Student}");
              };
