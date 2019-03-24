@@ -150,10 +150,3 @@ What if we wanted to find all of the students who started with "A" - Can't use a
 		   s.StudentLastName
 	FROM Student s
 	WHERE StudentFirstName LIKE 'B%'; */
-
-
-
-
-
-
-
