@@ -170,7 +170,10 @@ namespace StudentExercises
         Console.WriteLine(" ");
         Console.WriteLine("  ********** STUDENT EXERCISES - PART 2 ********** ");
         Console.WriteLine(" ");
-        Console.WriteLine(" ** Exercises in JavaScript **");
+        Console.WriteLine(" ** Exercises in JavaScript **");        
+        
+// QUERY Syntax - List<Exercise> JSEcercises = ExerciseList.Where(exercises => exercises.Language).ToList();
+// I used METHOD SYNTAX
         var exercisesList = from exercise in exercises 
                 where exercise.Language == "JavaScript"
                 select exercise;
@@ -232,6 +235,7 @@ namespace StudentExercises
         foreach (Student s in studentMostWorking) {
                 Console.WriteLine($"     {s.StudentFirstName} {s.StudentLastName} {s.TheStudentsExerciseList.Count}");
                 };
+        // @nd Step - Student StudentWithTheMostExercises = StudentMost Working.First();
 
 // How many students in each cohort?
         Console.WriteLine(" ");
@@ -241,6 +245,13 @@ namespace StudentExercises
             var studentsPerCohort = c.CohortStudentList.Count;
                 Console.WriteLine($"   There are {c.CohortStudentList.Count} students in {c.CohortName} ");
         };
+        // List<CohortReport> CohortReportList = (from stu in StudentList
+        // group stu by stu.Cohort.Name into groupedStu
+        // Select new CohortReport()
+        // {
+        // CohortName = groupedStu.Key
+        // StudentCount = groupedStu.Count()
+        //   }).ToList 
         }        
     }
 }
