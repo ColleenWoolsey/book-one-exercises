@@ -211,6 +211,8 @@ namespace StudentExercisesPart4.Data
         // HOWEVER The problem with me making Exercise intersection the main table is I don't see students 
         // without exercises - Where NULL - SO SEE BOTTOM FOR ANDY'S CODE
 
+       // ********** THIS DOESN'T Work
+
         public List<ExerciseIntersection> GetAllExerciseIntersections()
         {
             using (SqlConnection conn = Connection)
@@ -228,15 +230,17 @@ namespace StudentExercisesPart4.Data
                                             LEFT JOIN Cohort c on s.CohortId = c.id";                    
 
                     SqlDataReader reader = cmd.ExecuteReader();
+
                     List<ExerciseIntersection> exerciseIntersections = new List<ExerciseIntersection>();
+
                     while (reader.Read())
                     {
                         ExerciseIntersection exerciseIntersection = new ExerciseIntersection()
                         {
-                            StudentId = reader.GetInt32(reader.GetOrdinal("StudentId")),
+                            StudentId = reader.GetInt32(reader.GetOrdinal("Id")),
                             Student = new Student
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                Id = reader.GetInt32(reader.GetOrdinal("StudentId")),
                                 StudentFirstName = reader.GetString(reader.GetOrdinal("StudentFirstName")),
                                 StudentLastName = reader.GetString(reader.GetOrdinal("StudentLastName")),
                             },
